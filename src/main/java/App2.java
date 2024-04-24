@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.FileInputStream;
@@ -11,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.*;
+import java.awt.*;
 public class App2 {
     public static void main(String[] args) {
 
@@ -47,6 +47,9 @@ public class App2 {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setPreferredSize(new Dimension(400, 200));
+
+        // panel.setLayout(new GridLayout(0, 2, 10, 10));
 
         JLabel layersLabel = new JLabel("Number of Layers:");
         JTextField layersField = new JTextField(10);
@@ -91,7 +94,7 @@ public class App2 {
         String result = (prediction <= 0.5) ? "Male" : "Female";
         // Display predictions
         JOptionPane.showMessageDialog(null,
-                "Height: " + newHeight + " Weight: " + newWeight + "\n" + " Gender: " + result + " Prediction: " + prediction
+               "Number Of Neurons in the network:" + numLayers*(numLayers + 1)/2 + "\n" + "Height: " + newHeight + " Weight: " + newWeight + "\n" + "Gender: " + result + " Prediction: " + prediction
                 
         );
     }
