@@ -1,5 +1,5 @@
 # How to Run
-- Open the App2.java file and then first compile it and then run it.
+- Open the App2.java file and then first compile (`javac App2.java`) it and then run (`java App2.java`) it.
 
 # Difference Between App.java and App2.java
 - The `App.java` is a static code which has only `6` neurons spread across three layers and fixed number of epochs.
