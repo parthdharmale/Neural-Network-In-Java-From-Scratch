@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.*;
 import java.awt.*;
+
 public class App2 {
     public static void main(String[] args) {
 
@@ -18,10 +19,10 @@ public class App2 {
         List<Double> lastColumn = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                new FileInputStream("testdata.csv"), StandardCharsets.UTF_8))) {
+                new FileInputStream("trainingdata.csv"), StandardCharsets.UTF_8))) {
 
             String line;
-            br.readLine(); // Skip the header line
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 List<Integer> row = new ArrayList<>();
@@ -33,8 +34,6 @@ public class App2 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
         SwingUtilities.invokeLater(() -> {
             new App2().createAndShowGUI(data, lastColumn);
@@ -84,7 +83,8 @@ public class App2 {
         frame.setVisible(true);
     }
 
-    public void trainAndPredict(int numLayers, int epochs, int newHeight, int newWeight, List<List<Integer>> data, List<Double> lastColumn) {
+    public void trainAndPredict(int numLayers, int epochs, int newHeight, int newWeight, List<List<Integer>> data,
+            List<Double> lastColumn) {
 
         Network network500 = new Network(numLayers, epochs);
 
@@ -94,8 +94,9 @@ public class App2 {
         String result = (prediction <= 0.5) ? "Male" : "Female";
         // Display predictions
         JOptionPane.showMessageDialog(null,
-               "Number Of Neurons in the network:" + numLayers*(numLayers + 1)/2 + "\n" + "Height: " + newHeight + " Weight: " + newWeight + "\n" + "Gender: " + result + " Prediction: " + prediction
-                
+                "Number Of Neurons in the network:" + numLayers * (numLayers + 1) / 2 + "\n" + "Height: " + newHeight
+                        + " Weight: " + newWeight + "\n" + "Gender: " + result + " Prediction: " + prediction
+
         );
     }
 
@@ -142,6 +143,7 @@ public class App2 {
             }
             return dp[last];
         }
+
         public void train(List<List<Integer>> data, List<Double> answers) {
             Double bestEpochLoss = null;
             for (int epoch = 0; epoch < epochs; epoch++) {
@@ -165,15 +167,17 @@ public class App2 {
             }
         }
     }
+
     static class Neuron {
         Random random = new Random();
         Double oldBias = random.nextDouble(-1, 1), bias = 4.227263774752734;
-        Double oldWeight1 = random.nextDouble(-1, 1), weight1 = -8.188992192876949;
+        Double oldWeight1 = random.nextDouble(-1, 1), weight1    = -8.188992192876949;
         Double oldWeight2 = random.nextDouble(-1, 1), weight2 = -4.67817295490573;
 
         public void mutate(Double learnFactor) {
             int propertyToChange = random.nextInt(0, 3);
-            Double changeFactor = (learnFactor == null) ? random.nextDouble(-1, 1) : (learnFactor * random.nextDouble(-1, 1));
+            Double changeFactor = (learnFactor == null) ? random.nextDouble(-1, 1)
+                    : (learnFactor * random.nextDouble(-1, 1));
             if (propertyToChange == 0) {
                 this.bias += changeFactor;
             } else if (propertyToChange == 1) {
@@ -196,10 +200,11 @@ public class App2 {
         }
 
         public double compute(double input1, double input2) {
-            double preActivation = (this.weight1 * input1) + (this.weight2 * input2) + this.bias;
+            double preActivation = (this.weight1 * input1) + (this.weight2 * input2) + this.bias;// G = H*Weight1 + W * Weight2 + bias
             return Util.sigmoid(preActivation);
         }
     }
+
     static class Util {
         public static double sigmoid(double in) {
             return 1 / (1 + Math.exp(-in));

@@ -49,7 +49,7 @@ public class Main {
         List<Double> lastColumn = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                new FileInputStream("testdata.csv"), StandardCharsets.UTF_8))) {
+                new FileInputStream("trainingdata.csv"), StandardCharsets.UTF_8))) {
 
             String line;
             br.readLine(); // Skip the header line
@@ -65,13 +65,11 @@ public class Main {
             e.printStackTrace();
         }
 
-        // Convert List<List<Integer>> to a 2D array (optional)
         Integer[][] dataArray = new Integer[data.size()][2];
         for (int i = 0; i < data.size(); i++) {
             List<Integer> row = data.get(i);
             dataArray[i] = row.toArray(new Integer[0]);
         }
 
-        // Now you have 'data' as List<List<Integer>> and 'lastColumn' as List<Double>
     }
 }
